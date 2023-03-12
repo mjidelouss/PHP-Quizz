@@ -72,7 +72,7 @@ import ScoreComponent from './ScoreComponent.vue';
         <v-btn text>Cancel</v-btn>
       </v-stepper-content>
 
-      <v-stepper-content step="3">
+      <v-stepper-content step="3" v-if="quizCompleted">
         <v-card
           class="mb-12"
           color="grey lighten-1"

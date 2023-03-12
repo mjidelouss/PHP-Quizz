@@ -8,7 +8,8 @@ export const questions = [
       "Preprocessor Home Page", 
       "Pretext Hypertext Processor"
     ],
-    answer: 1
+    answer: 1,
+    selected: null
   },
   {
     question: "PHP est-il sensible à la casse?",
@@ -16,7 +17,8 @@ export const questions = [
       "True", 
       "False", 
     ],
-    answer: 1
+    answer: 1,
+    selected: null
   },
   {
     question: "Les fichiers PHP ont l’extension …. ?",
@@ -26,7 +28,8 @@ export const questions = [
       ".php", 
       ".ph"
     ],
-    answer: 3
+    answer: 3,
+    selected: null
   },
   {
     question: "Un script PHP devrait commencer par ___ ?",
@@ -36,7 +39,8 @@ export const questions = [
       "<?php", 
       "php"
     ],
-    answer: 3
+    answer: 3,
+    selected: null
   },
   {
     question: "Quelle version de PHP a introduit Try/catch Exception?",
@@ -46,7 +50,8 @@ export const questions = [
       "PHP 5.3", 
       "PHP 7.2"
     ],
-    answer: 2
+    answer: 2,
+    selected: null
   },
   {
     question: "S’il y a un problème de chargement du fichier, la fonction require() génère un warning, mais le script continue son exécution?",
@@ -54,7 +59,8 @@ export const questions = [
       "True", 
       "False", 
     ],
-    answer: 2
+    answer: 2,
+    selected: null
   },
   {
     question: "Les espaces de noms ou « namespaces » sont disponibles depuis quelle version ?",
@@ -64,7 +70,8 @@ export const questions = [
       "PHP 5.3", 
       "PHP 6"
     ],
-    answer: 4
+    answer: 4,
+    selected: null
   },
   {
     question: "Laquelle des portées suivantes n’est pas prise en charge en PHP?",
@@ -74,7 +81,8 @@ export const questions = [
       "public", 
       "friendly"
     ],
-    answer: 4
+    answer: 4,
+    selected: null
   },
   {
     question: "Les variables membres d’une classe sont également appelées __________?",
@@ -84,7 +92,8 @@ export const questions = [
       "des instances", 
       "tous les réponses sont vrais"
     ],
-    answer: 4
+    answer: 4,
+    selected: null
   },
   {
     question: "Les méthodes sont également appelées des_______?",
@@ -94,7 +103,8 @@ export const questions = [
       "objects", 
       "constructeurs"
     ],
-    answer: 1
+    answer: 1,
+    selected: null
   },
   {
     question: " Quelle mot-clé empêche une méthode d’être redéfinie par une classe file?",
@@ -104,7 +114,8 @@ export const questions = [
       "final", 
       "static",
     ],
-    answer: 3
+    answer: 3,
+    selected: null
   },
   {
     question: "Nous pouvons utiliser ___ pour commenter une seule ligne?",
@@ -114,6 +125,7 @@ export const questions = [
       "//", 
       "/* */"
     ],
-    answer: 3
+    answer: 3,
+    selected: null
   }
 ];

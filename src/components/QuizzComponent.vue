@@ -34,16 +34,18 @@ const questions = ref([
 	selected: null
   }
 ])
+
 const quizCompleted = ref(false)
 const currentQuestion = ref(0)
-const shuffledQuestions = questions.sort(() => Math.random() - 0.5)
+const timer = ref(30)
+let timerInterval
+const shuffledQuestions = computed(() => questions.value.slice().sort(() => Math.random() - 0.5))
 
 const score = computed(() => {
 	let value = 0
 	shuffledQuestions.value.map(q => {
 		if (q.selected != null && q.answer == q.selected) {
-			console.log('correct');
-			value++
+			value += 100
 		}
 	})
 	return value
@@ -60,30 +62,47 @@ const SetAnswer = (e) => {
 const NextQuestion = () => {
 	if (currentQuestion.value < shuffledQuestions.value.length - 1) {
 		currentQuestion.value++
+		resetTimer()
 		return
 	}
 	quizCompleted.value = true
 }
+const startTimer = () => {
+	timerInterval = setInterval(() => {
+		timer.value--
+		if (timer.value < 0) {
+			clearInterval(timerInterval)
+			timer.value = 0
+			NextQuestion()
+		}
+	}, 1000)
+}
+const resetTimer = () => {
+	clearInterval(timerInterval)
+	timer.value = 30
+	startTimer()
+}
 
+startTimer()
 </script>
 
 <template>
-    <div v-if="!quizCompleted">
+    <div>
   <!-- QUIZZ CONTAINER -->
-  <div class="container rounded p-3">
+  <div class="container rounded p-3" v-if="!quizCompleted">
         <div class="justify-center flex-column">
           <div id="box">
             <div class="box-item">
               <p id ="progressText" class="box-para fw-bold">
-                {{ `Question ❔ ` }}
+                {{ `Question ❔ ${currentQuestion + 1}/${shuffledQuestions.length}` }}
               </p>
               <div id="progressBar">
-                <div id="progressBarFull"></div>
+                <div id="progressBarFull" :style="{ width: `${((currentQuestion) / shuffledQuestions.length) * 100}%` }"></div>
               </div>
             </div>
             <div class="box-item">
               <p class="box-para fw-bold">Timer ⏳</p>
-              <h1 class="box-text" id="timer">{{  }}</h1>
+              <h1 class="box-text" id="timer">{{ timer }}</h1>
             </div>
             <div class="box-item">
               <p class="box-para fw-bold">
@@ -139,7 +158,8 @@ const NextQuestion = () => {
       </div>
       <section v-if="quizCompleted">
 			<h2>You have finished the quiz!</h2>
-			<p>Your score is {{ score }}/{{ questions.length }}</p>
+			<h3>Click on Continue to see your Score</h3>
+			<!-- <p>Your score is {{ score }}/{{ questions.length }}</p> -->
 		</section>
     </div>
 </template>
