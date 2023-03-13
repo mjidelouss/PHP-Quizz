@@ -1,7 +1,8 @@
 <script setup>
 /* eslint-disable */
-import { ref, computed } from 'vue'
+import { ref, computed, defineEmits} from 'vue'
 // import { questions } from "../data.js";
+
 const questions = ref([
   {
 	question: 'What is Vue?',
@@ -38,6 +39,8 @@ const questions = ref([
 const quizCompleted = ref(false)
 const currentQuestion = ref(0)
 const timer = ref(30)
+let correct = ref(0)
+let incorrect = ref(0)
 let timerInterval
 const shuffledQuestions = computed(() => questions.value.slice().sort(() => Math.random() - 0.5))
 
@@ -46,6 +49,8 @@ const score = computed(() => {
 	shuffledQuestions.value.map(q => {
 		if (q.selected != null && q.answer == q.selected) {
 			value += 100
+			correct++
+			incorrect = shuffledQuestions.length - correct
 		}
 	})
 	return value
@@ -66,6 +71,7 @@ const NextQuestion = () => {
 		return
 	}
 	quizCompleted.value = true
+	$emit('return-result', score)
 }
 const startTimer = () => {
 	timerInterval = setInterval(() => {
@@ -84,6 +90,7 @@ const resetTimer = () => {
 }
 
 startTimer()
+
 </script>
 
 <template>
@@ -140,26 +147,14 @@ startTimer()
 					<span>{{ option }}</span>
 				</label>
 			</div>
-			
-			<button 
-                id="qst-btn"
-				@click="NextQuestion" 
-				:disabled="!getCurrentQuestion.selected">
-				{{ 
-					getCurrentQuestion.index == questions.length - 1 
-						? 'Finish' 
-						: getCurrentQuestion.selected == null
-							? 'Select an option'
-							: 'Next question'
-				}}
-			</button>
-          
+			<button v-if="getCurrentQuestion.index == questions.length - 1" id="qst-btn" @click="NextQuestion" :disabled="!getCurrentQuestion.selected">Finish</button>
+			<button v-if="getCurrentQuestion.selected == null && !(getCurrentQuestion.index == questions.length - 1)" id="qst-btn" @click="NextQuestion" :disabled="!getCurrentQuestion.selected">Select an option</button>
+			<button v-if="!(getCurrentQuestion.selected == null) && !(getCurrentQuestion.index == questions.length - 1)" id="qst-btn" @click="NextQuestion" :disabled="!getCurrentQuestion.selected">Next question</button>
         </div>
       </div>
       <section v-if="quizCompleted">
 			<h2>You have finished the quiz!</h2>
 			<h3>Click on Continue to see your Score</h3>
-			<!-- <p>Your score is {{ score }}/{{ questions.length }}</p> -->
 		</section>
     </div>
 </template>

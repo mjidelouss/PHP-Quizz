@@ -11,9 +11,14 @@ import ScoreComponent from './ScoreComponent.vue';
     data() {
         return {
             e1: 1,
+            score: 0,
         };
     },
     methods: {
+      showResult(score){
+        this.score = score
+      }
+
       
     },
 }
@@ -37,7 +42,7 @@ import ScoreComponent from './ScoreComponent.vue';
       <v-stepper-content step="1">
         <v-card
           class="mb-12"
-          color="light-blue lighten-5"
+          color="grey lighten-4"
           height="450px"
         >
         <RulesComponent/>
@@ -56,10 +61,10 @@ import ScoreComponent from './ScoreComponent.vue';
       <v-stepper-content step="2">
         <v-card
           class="mb-12"
-          color="grey lighten-1"
+          color="grey lighten-4"
           height="480px"
         >
-        <QuizzComponent/>
+        <QuizzComponent @return-result="showResult"/>
       </v-card>
 
         <v-btn
@@ -72,13 +77,13 @@ import ScoreComponent from './ScoreComponent.vue';
         <v-btn text>Cancel</v-btn>
       </v-stepper-content>
 
-      <v-stepper-content step="3" v-if="quizCompleted">
+      <v-stepper-content step="3">
         <v-card
           class="mb-12"
-          color="grey lighten-1"
-          height="200px"
+          color="grey lighten-4"
+          height="480px"
         >
-        <ScoreComponent/>
+        <ScoreComponent :score="score"/>
       </v-card>
 
         <v-btn
