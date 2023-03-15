@@ -11,15 +11,17 @@ import ScoreComponent from './ScoreComponent.vue';
     data() {
         return {
             e1: 1,
-            score: 0,
+            result: null,
+            repeatQuiz:false
         };
     },
     methods: {
-      showResult(score){
-        this.score = score
+      showResult(result){
+        this.result = result
+      },
+      changeState(){
+        this.repeatQuiz = true
       }
-
-      
     },
 }
 </script>
@@ -54,17 +56,15 @@ import ScoreComponent from './ScoreComponent.vue';
         >
           Continue
         </v-btn>
-
-        <v-btn text>Cancel</v-btn>
       </v-stepper-content>
 
       <v-stepper-content step="2">
         <v-card
           class="mb-12"
           color="grey lighten-4"
-          height="480px"
+          height="510px"
         >
-        <QuizzComponent @return-result="showResult"/>
+        <QuizzComponent @return-score="showResult" :repeatQuiz="repeatQuiz"/>
       </v-card>
 
         <v-btn
@@ -73,8 +73,6 @@ import ScoreComponent from './ScoreComponent.vue';
         >
           Continue
         </v-btn>
-
-        <v-btn text>Cancel</v-btn>
       </v-stepper-content>
 
       <v-stepper-content step="3">
@@ -83,17 +81,16 @@ import ScoreComponent from './ScoreComponent.vue';
           color="grey lighten-4"
           height="480px"
         >
-        <ScoreComponent :score="score"/>
+        <ScoreComponent :result="result"/>
       </v-card>
 
         <v-btn
           color="primary"
-          @click="e1 = 1"
+          @click="changeState(); e1 = 1"
+          margin-bottom="1px"
         >
-          Continue
+          Home
         </v-btn>
-
-        <v-btn text>Cancel</v-btn>
       </v-stepper-content>
     </v-stepper-items>
   </v-stepper>

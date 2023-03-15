@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-main>
-      <StepperComponent/>
+      <StepperComponent />
     </v-main>
   </v-app>
 </template>
@@ -17,7 +17,8 @@ export default {
   },
 
   data: () => ({
-    //
+    
   }),
+  
 };
 </script>
